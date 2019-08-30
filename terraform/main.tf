@@ -6,21 +6,21 @@ terraform {
 # Выбираем провайдера
 provider "google" {   
     version = "2.5.0"
-    project = "logical-veld-251210" # Здесь названия проекта в GCP
-    region = "europe-west-1"
+    project = var.project # Здесь названия проекта в GCP
+    region = var.region
 }
 
 # Определяем параметры инстанса
 resource "google_compute_instance" "app" {
   name         = "reddit-app"
   machine_type = "g1-small"
-  zone         = "europe-west1-b"
+  zone         = var.zone
   tags         = ["reddit-app"]
 
   # Выбираем созданный в Packer
   boot_disk {
     initialize_params {
-      image = "reddit-base-1567085858"
+      image = var.disk_image
     }
   }
 
@@ -32,7 +32,7 @@ resource "google_compute_instance" "app" {
 
   # Добавляем ssh-ключ для подключения провижионеров
   metadata = {
-    ssh-keys = "sarmirim:${file("~/.ssh/id_rsa.pub")}"
+    ssh-keys = "sarmirim:${file(var.public_key_path)}"
   }
 
   # Настройка подключения для провижионеров
@@ -41,7 +41,7 @@ resource "google_compute_instance" "app" {
       type = "ssh"  
       user = "sarmirim"
       agent = false 
-      private_key = file("~/.ssh/id_rsa")
+      private_key = file(var.private_key_path)
   }
   
   # Сами провижионеры
