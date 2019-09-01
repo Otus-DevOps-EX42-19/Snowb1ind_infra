@@ -6,13 +6,19 @@ terraform {
 # Выбираем провайдера
 provider "google" {   
     version = "2.5.0"
-    project = var.project # Здесь названия проекта в GCP
+    project = var.project # Здесь название проекта в GCP
     region = var.region
+}
+
+# 
+resource "google_compute_project_metadata_item" "ssh-keys" {
+  key   = "ssh-keys"
+  value = "sarmirim:${file(var.public_key_path)}appuser:${file(var.public_key_path)}appuser1:${file(var.public_key_path)}"
 }
 
 # Определяем параметры инстанса
 resource "google_compute_instance" "app" {
-  name         = "reddit-app"
+  name         = "reddit-app-tf"
   machine_type = "g1-small"
   zone         = var.zone
   tags         = ["reddit-app"]
