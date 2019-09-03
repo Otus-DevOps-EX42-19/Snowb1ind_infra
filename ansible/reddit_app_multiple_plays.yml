@@ -3,7 +3,7 @@
   hosts: db
   vars:
     mongo_bind_ip: 0.0.0.0
-    db_host: 10.132.0.59
+    db_host: 10.132.15.201
   tags: db-tag
   tasks:
     - name: Change mongo file
@@ -22,7 +22,7 @@
 - name: Configure app
   hosts: app
   vars:
-    db_host: 10.132.0.59
+    db_host: 10.132.15.201
   tags: app-tag
   become: true
   tasks:
@@ -49,7 +49,7 @@
 - name: Deploy app
   hosts: app
   vars:
-    db_host: 10.132.0.59
+    db_host: 10.132.15.201
   tags: deploy-tag
   become: true
   tasks:
