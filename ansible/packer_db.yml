@@ -1,0 +1,27 @@
+- name: Configure MongoDB
+  hosts: all
+  become: true
+  tasks:
+
+    - name: Add key to MongoDB rep
+      apt_key:
+        keyserver: keyserver.ubuntu.com
+        id: D68FA50FEA312927
+        state: present
+
+    - name: Add unit file for Puma
+      copy:
+        src: files/mongodb-org-3.2.list
+        dest: /etc/apt/sources.list.d/   
+
+    - name: Install apache httpd but avoid starting it immediately (state=present is optional)
+      apt:
+        name: mongodb-org
+        state: present
+        update_cache: yes
+      notify: reload mongod
+
+  handlers:
+    - name: reload mongod
+      become: true
+      service: name=mongod state=restarted
