@@ -1,2 +1,10 @@
+<<<<<<< HEAD
 terraform
 .terraform
+=======
+*.tfstate
+*.tfstate.*.backup
+*.tfstate.backup
+*.tfvars
+.terraform/
+>>>>>>> master
