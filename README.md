@@ -1,7 +1,7 @@
 # Homework GCP №2
 
-testapp_IP = 35.228.238.226 \
-testapp_PORT = 9292
+testapp_IP = 35.228.238.226  
+testapp_port = 9292
 
 ## Создание инстанса с startup скриптом
 

@@ -1,2 +1,5 @@
-commands.txt
+*.tfstate
+*.tfstate.*.backup
+*.tfstate.backup
+*.tfvars
 .terraform/
